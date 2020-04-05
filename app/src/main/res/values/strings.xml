@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Respirator</string>
+    <string name="app_name">Omnis</string>
     <string name="mode">Mode</string>
     <string name="tidal_volume_vt">Tidal Volume (Vt)</string>
     <string name="inspiratory_expiratory_i_e_ratio">Inspiratory: Expiratory (I:E) Ratio</string>
