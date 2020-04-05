@@ -8,4 +8,5 @@
     <string name="begin_treatment">Begin Treatment</string>
     <string name="stop_treatment">Stop Treatment</string>
     <string name="pressure_out">Pressure (Out)</string>
+    <string name="respiratory_rate">Respiratory Rate</string>
 </resources>

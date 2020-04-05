@@ -10,14 +10,14 @@
         android:id="@+id/mode_label"
         android:layout_width="match_parent"
         android:layout_height="20dp"
-        android:labelFor="@id/mode_spinner"
-        android:text="@string/mode"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:labelFor="@id/mode_spinner"
+        android:text="@string/mode"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
         android:id="@+id/mode_spinner"
@@ -38,8 +38,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:text="@string/tidal_volume_vt"
         android:labelFor="@id/tidal_volume_text"
+        android:text="@string/tidal_volume_vt"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mode_spinner" />
 
@@ -56,57 +56,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/volume_label" />
 
-    <TextView
-        android:id="@+id/inspiratory_expiratory_ratio_label"
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_tidal_volume"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-
-        android:labelFor="@id/inspiratory_expiratory_ratio_text"
-        android:text="@string/inspiratory_expiratory_i_e_ratio"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tidal_volume_text" />
-
-
-    <EditText
-        android:id="@+id/inspiratory_expiratory_ratio_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/colorAccentBackground"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:importantForAutofill="no"
-        android:inputType="number|numberDecimal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inspiratory_expiratory_ratio_label" />
-
-    <TextView
-        android:id="@+id/peep_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-
-        android:labelFor="@id/peep_text"
-        android:text="@string/positive_end_expiratory_pressure_peep"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inspiratory_expiratory_ratio_text" />
-
-
-    <EditText
-        android:id="@+id/peep_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/colorAccentBackground"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:importantForAutofill="no"
-        android:inputType="number|numberDecimal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/peep_label" />
+        android:visibility="visible"
+        app:constraint_referenced_ids="volume_label,tidal_volume_text" />
 
     <TextView
         android:id="@+id/pressure_support_label"
@@ -118,7 +73,7 @@
         android:labelFor="@id/peep_text"
         android:text="@string/pressure_support_ps"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/peep_text" />
+        app:layout_constraintTop_toBottomOf="@+id/tidal_volume_text" />
 
     <EditText
         android:id="@+id/pressure_support_text"
@@ -133,6 +88,110 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pressure_support_label" />
 
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_pressure_support"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:constraint_referenced_ids="pressure_support_label,pressure_support_text" />
+
+
+    <TextView
+        android:id="@+id/respiratory_rate_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+
+        android:labelFor="@id/respiratory_rate_text"
+        android:text="@string/respiratory_rate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pressure_support_text" />
+
+    <EditText
+        android:id="@+id/respiratory_rate_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/colorAccentBackground"
+        android:ems="10"
+        android:importantForAutofill="no"
+        android:inputType="number|numberDecimal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/respiratory_rate_label" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_respiratory_rate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:constraint_referenced_ids="respiratory_rate_label,respiratory_rate_text" />
+
+    <TextView
+        android:id="@+id/inspiratory_expiratory_ratio_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+
+        android:labelFor="@id/inspiratory_expiratory_ratio_text"
+        android:text="@string/inspiratory_expiratory_i_e_ratio"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/respiratory_rate_text" />
+
+    <EditText
+        android:id="@+id/inspiratory_expiratory_ratio_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/colorAccentBackground"
+        android:ems="10"
+        android:importantForAutofill="no"
+        android:inputType="number|numberDecimal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inspiratory_expiratory_ratio_label" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_insp_exp_ratio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:constraint_referenced_ids="inspiratory_expiratory_ratio_label,inspiratory_expiratory_ratio_text" />
+
+    <TextView
+        android:id="@+id/peep_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+
+        android:labelFor="@id/peep_text"
+        android:text="@string/positive_end_expiratory_pressure_peep"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inspiratory_expiratory_ratio_text" />
+
+    <EditText
+        android:id="@+id/peep_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/colorAccentBackground"
+        android:ems="10"
+        android:importantForAutofill="no"
+        android:inputType="number|numberDecimal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/peep_label" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_peep"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:constraint_referenced_ids="peep_label,peep_text" />
+
     <View
         android:id="@+id/divider"
         android:layout_width="409dp"
@@ -141,14 +200,7 @@
         android:background="?android:attr/listDivider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pressure_support_text" />
-
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/group_ins"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="visible"
-        app:constraint_referenced_ids="mode_label,mode_spinner,volume_label,tidal_volume_text,inspiratory_expiratory_ratio_label,inspiratory_expiratory_ratio_text,peep_label,peep_text,pressure_support_label,pressure_support_text" />
+        app:layout_constraintTop_toBottomOf="@+id/peep_text" />
 
     <TextView
         android:id="@+id/pressure_out_label"
@@ -168,15 +220,14 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:labelFor="@id/pressure_out_text"
-        android:gravity="center"
-        android:padding="8dp"
         android:background="@color/colorAccent"
+        android:gravity="center"
+        android:labelFor="@id/pressure_out_text"
+        android:padding="8dp"
         android:text="1.0"
         android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pressure_out_label" />
-
 
     <TextView
         android:id="@+id/flow_out_label"
