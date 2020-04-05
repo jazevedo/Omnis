@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-
     <TextView
         android:id="@+id/mode_label"
         android:layout_width="match_parent"
@@ -121,8 +120,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/peep_text" />
 
-
-
     <EditText
         android:id="@+id/pressure_support_text"
         android:layout_width="wrap_content"
@@ -146,6 +143,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pressure_support_text" />
 
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_ins"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:constraint_referenced_ids="mode_label,mode_spinner,volume_label,tidal_volume_text,inspiratory_expiratory_ratio_label,inspiratory_expiratory_ratio_text,peep_label,peep_text,pressure_support_label,pressure_support_text" />
 
     <TextView
         android:id="@+id/pressure_out_label"
@@ -200,6 +203,14 @@
         android:textSize="20dp"
         app:layout_constraintStart_toStartOf="@id/flow_out_label"
         app:layout_constraintTop_toBottomOf="@+id/flow_out_label" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_outs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:constraint_referenced_ids="pressure_out_label,pressure_out_text,flow_out_label,flow_out_text" />
+
 
     <Button
         android:id="@+id/toggle_treatment"
