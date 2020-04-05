@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="modes_array">
+        <item>Assist Control (AC)</item>
+        <item>Assist Control Volume Ventilation</item>
+        <item>Assist Control Pressure Ventilation</item>
+        <item>Synchronous Intermittent Mandatory Ventilation (SIMV)</item>
+        <item>Airway Pressure Release Ventilation (APRV)</item>
+        <item>Pressure Support Ventilation (PSV)</item>
+        <item>Continuous Positive Airway Pressure (CPAP)</item>
+    </string-array>
+</resources>

@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Respirator</string>
+    <string name="mode">Mode</string>
+    <string name="tidal_volume_vt">Tidal Volume (Vt)</string>
+    <string name="inspiratory_expiratory_i_e_ratio">Inspiratory: Expiratory (I:E) Ratio</string>
+    <string name="positive_end_expiratory_pressure_peep">Positive End Expiratory Pressure (PEEP)</string>
+    <string name="pressure_support_ps">Pressure Support (PS)</string>
+    <string name="begin_treatment">Begin Treatment</string>
+    <string name="stop_treatment">Stop Treatment</string>
+    <string name="pressure_out">Pressure (Out)</string>
 </resources>
