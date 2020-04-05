@@ -10,9 +10,9 @@
         android:id="@+id/mode_label"
         android:layout_width="match_parent"
         android:layout_height="20dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="16dp"
         android:labelFor="@id/mode_spinner"
         android:text="@string/mode"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,10 +23,9 @@
         android:id="@+id/mode_spinner"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="@color/colorAccentBackground"
+        android:layout_marginEnd="16dp"
         android:entries="@array/modes_array"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,7 +35,7 @@
         android:id="@+id/volume_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:labelFor="@id/tidal_volume_text"
         android:text="@string/tidal_volume_vt"
@@ -45,29 +44,39 @@
 
     <EditText
         android:id="@+id/tidal_volume_text"
-        android:layout_width="wrap_content"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:background="@color/colorAccentBackground"
         android:ems="10"
         android:importantForAutofill="no"
         android:inputType="number|numberDecimal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/volume_label" />
 
+    <TextView
+        android:id="@+id/tidal_volume_unit"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:text="mL/kg IBW"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="@+id/tidal_volume_text"
+        app:layout_constraintStart_toEndOf="@+id/tidal_volume_text"
+        app:layout_constraintTop_toTopOf="@id/tidal_volume_text" />
+
     <androidx.constraintlayout.widget.Group
         android:id="@+id/group_tidal_volume"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="visible"
-        app:constraint_referenced_ids="volume_label,tidal_volume_text" />
+        app:constraint_referenced_ids="volume_label,tidal_volume_text,tidal_volume_unit" />
 
     <TextView
         android:id="@+id/pressure_support_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
 
         android:labelFor="@id/peep_text"
@@ -77,30 +86,41 @@
 
     <EditText
         android:id="@+id/pressure_support_text"
-        android:layout_width="wrap_content"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:background="@color/colorAccentBackground"
+        android:paddingStart="6dp"
         android:ems="10"
         android:importantForAutofill="no"
         android:inputType="number|numberDecimal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pressure_support_label" />
 
+    <TextView
+        android:id="@+id/pressure_support_unit"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:text="@string/h20"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="@+id/pressure_support_text"
+        app:layout_constraintStart_toEndOf="@+id/pressure_support_text"
+        app:layout_constraintTop_toTopOf="@id/pressure_support_text" />
+
     <androidx.constraintlayout.widget.Group
         android:id="@+id/group_pressure_support"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="visible"
-        app:constraint_referenced_ids="pressure_support_label,pressure_support_text" />
+        app:constraint_referenced_ids="pressure_support_label,pressure_support_text,pressure_support_unit" />
 
 
     <TextView
         android:id="@+id/respiratory_rate_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
 
         android:labelFor="@id/respiratory_rate_text"
@@ -110,16 +130,26 @@
 
     <EditText
         android:id="@+id/respiratory_rate_text"
-        android:layout_width="wrap_content"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:background="@color/colorAccentBackground"
         android:ems="10"
         android:importantForAutofill="no"
         android:inputType="number|numberDecimal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/respiratory_rate_label" />
+
+    <TextView
+        android:id="@+id/respiratory_rate_unit"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:text="@string/breaths_min"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="@+id/respiratory_rate_text"
+        app:layout_constraintStart_toEndOf="@+id/respiratory_rate_text"
+        app:layout_constraintTop_toTopOf="@id/respiratory_rate_text" />
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/group_respiratory_rate"
@@ -132,24 +162,22 @@
         android:id="@+id/inspiratory_expiratory_ratio_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
 
-        android:labelFor="@id/inspiratory_expiratory_ratio_text"
+        android:labelFor="@id/inspiratory_expiratory_ratio_spinner"
         android:text="@string/inspiratory_expiratory_i_e_ratio"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/respiratory_rate_text" />
 
-    <EditText
-        android:id="@+id/inspiratory_expiratory_ratio_text"
-        android:layout_width="wrap_content"
+    <Spinner
+        android:id="@+id/inspiratory_expiratory_ratio_spinner"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:background="@color/colorAccentBackground"
-        android:ems="10"
-        android:importantForAutofill="no"
-        android:inputType="number|numberDecimal"
+        android:layout_marginEnd="16dp"
+        android:entries="@array/insp_exp_ratio"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inspiratory_expiratory_ratio_label" />
 
@@ -158,32 +186,41 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="visible"
-        app:constraint_referenced_ids="inspiratory_expiratory_ratio_label,inspiratory_expiratory_ratio_text" />
+        app:constraint_referenced_ids="inspiratory_expiratory_ratio_label,inspiratory_expiratory_ratio_spinner" />
 
     <TextView
         android:id="@+id/peep_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-
         android:labelFor="@id/peep_text"
         android:text="@string/positive_end_expiratory_pressure_peep"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inspiratory_expiratory_ratio_text" />
+        app:layout_constraintTop_toBottomOf="@+id/inspiratory_expiratory_ratio_spinner" />
 
     <EditText
         android:id="@+id/peep_text"
-        android:layout_width="wrap_content"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:background="@color/colorAccentBackground"
         android:ems="10"
         android:importantForAutofill="no"
         android:inputType="number|numberDecimal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/peep_label" />
+
+    <TextView
+        android:id="@+id/peep_unit"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:text="@string/h20"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="@+id/peep_text"
+        app:layout_constraintStart_toEndOf="@+id/peep_text"
+        app:layout_constraintTop_toTopOf="@id/peep_text" />
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/group_peep"
@@ -206,7 +243,7 @@
         android:id="@+id/pressure_out_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
 
         android:labelFor="@id/pressure_out_text"
@@ -218,12 +255,13 @@
         android:id="@+id/pressure_out_text"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:background="@color/colorAccent"
         android:gravity="center"
         android:labelFor="@id/pressure_out_text"
         android:padding="8dp"
+        android:textColor="@android:color/white"
         android:text="1.0"
         android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -237,7 +275,7 @@
         android:layout_marginTop="16dp"
 
         android:labelFor="@id/flow_out_text"
-        android:text="@string/pressure_out"
+        android:text="Flow (Out)"
         app:layout_constraintStart_toEndOf="@+id/pressure_out_text"
         app:layout_constraintTop_toBottomOf="@+id/divider" />
 
@@ -249,6 +287,7 @@
         android:background="@color/colorAccent"
         android:gravity="center"
         android:labelFor="@id/flow_out_text"
+        android:textColor="@android:color/white"
         android:padding="8dp"
         android:text="1.0"
         android:textSize="20dp"
@@ -267,10 +306,11 @@
         android:id="@+id/toggle_treatment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
         android:background="@color/colorAccent"
+        android:textColor="@android:color/white"
         android:onClick="toggleTreatment"
         android:paddingTop="16dp"
         android:paddingBottom="16dp"

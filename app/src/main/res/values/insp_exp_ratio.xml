@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="insp_exp_ratio">
+        <item>1:2</item>
+        <item>1:3</item>
+        <item>1:1</item>
+        <item>2:1</item>
+        <item>3:1</item>
+        <item>4:1</item>
+    </string-array>
+</resources>
