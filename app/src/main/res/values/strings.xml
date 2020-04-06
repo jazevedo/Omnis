@@ -7,8 +7,11 @@
     <string name="pressure_support_ps">Pressure Support</string>
     <string name="begin_treatment">Begin Treatment</string>
     <string name="stop_treatment">Stop Treatment</string>
-    <string name="pressure_out">Pressure (Out)</string>
     <string name="respiratory_rate">Respiratory Rate</string>
     <string name="h20">cm H<sub>2</sub>0</string>
     <string name="breaths_min">breaths/min</string>
+    <string name="flow_in">Flow (In)</string>
+    <string name="volume_in">Volume (In)</string>
+    <string name="volume_out">Volume (Out)</string>
+    <string name="pressure">Pressure</string>
 </resources>

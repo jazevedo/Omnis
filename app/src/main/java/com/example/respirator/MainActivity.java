@@ -14,8 +14,7 @@ import androidx.constraintlayout.widget.Group;
 
 
 public class MainActivity extends AppCompatActivity
-    implements AdapterView.OnItemSelectedListener
-         {
+        implements AdapterView.OnItemSelectedListener {
 
     public static final String tag = "Omnis";
 
@@ -35,6 +34,11 @@ public class MainActivity extends AppCompatActivity
 
     private Modes mCurrentMode;
     private InputCluster mCluster;
+    private View mVolumeIn;
+    private View mVolumeOut;
+    private View mFlowIn;
+    private View mFlowOut;
+    private View mPressure;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,30 +53,36 @@ public class MainActivity extends AppCompatActivity
 
         EditText tidalVolume = findViewById(R.id.tidal_volume_text);
         tidalVolume.setText(Double.toString(TidalVolumeMin));
-        tidalVolume.setFilters(new InputFilter[] { new InputFilterClamp(TidalVolumeMin, TidalVolumeMax) });
+        tidalVolume.setFilters(new InputFilter[]{new InputFilterClamp(TidalVolumeMin, TidalVolumeMax)});
 
         EditText pressureSupport = findViewById(R.id.pressure_support_text);
         pressureSupport.setText(Double.toString(PressureSupportMin));
-        pressureSupport.setFilters(new InputFilter[] { new InputFilterClamp(PressureSupportMin, PressureSupportMax) });
+        pressureSupport.setFilters(new InputFilter[]{new InputFilterClamp(PressureSupportMin, PressureSupportMax)});
 
         EditText peep = findViewById(R.id.peep_text);
         peep.setText(Double.toString(PeepMin));
-        peep.setFilters(new InputFilter[] { new InputFilterClamp(PeepMin, PeepMax) });
+        peep.setFilters(new InputFilter[]{new InputFilterClamp(PeepMin, PeepMax)});
 
         EditText respiratoryRate = findViewById(R.id.respiratory_rate_text);
         respiratoryRate.setText(Integer.toString(RespiratoryRateMin));
-        respiratoryRate.setFilters(new InputFilter[] { new InputFilterClamp(RespiratoryRateMin, RespiratoryRateMax) });
+        respiratoryRate.setFilters(new InputFilter[]{new InputFilterClamp(RespiratoryRateMin, RespiratoryRateMax)});
 
-        mCluster = new InputCluster(new View[] {
-            findViewById(R.id.group_tidal_volume),
-            findViewById(R.id.group_respiratory_rate),
-            findViewById(R.id.group_insp_exp_ratio),
-            findViewById(R.id.group_peep),
-            findViewById(R.id.group_pressure_support)
+        mCluster = new InputCluster(new View[]{
+                findViewById(R.id.group_tidal_volume),
+                findViewById(R.id.group_respiratory_rate),
+                findViewById(R.id.group_insp_exp_ratio),
+                findViewById(R.id.group_peep),
+                findViewById(R.id.group_pressure_support)
         });
 
         mModeSpinner.setSelection(0);
         mModeSpinner.setOnItemSelectedListener(this);
+
+        mVolumeIn = findViewById(R.id.volume_in_text);
+        mVolumeOut = findViewById(R.id.volume_out_text);
+        mFlowIn = findViewById(R.id.flow_in_text);
+        mFlowOut = findViewById(R.id.flow_out_text);
+        mPressure = findViewById(R.id.pressure_text);
     }
 
     @Override
@@ -101,7 +111,7 @@ public class MainActivity extends AppCompatActivity
         else {
             colorRef = R.color.colorAccentInverse;
             textRef = R.string.stop_treatment;
-            mCluster.toggleVisibility(new boolean[] { false, false, false, false, false });
+            mCluster.toggleVisibility(new boolean[]{false, false, false, false, false});
             mGroupOuts.setVisibility(View.VISIBLE);
             mModeSpinner.setEnabled(false);
             mModeSpinner.setClickable(false);
@@ -130,13 +140,13 @@ public class MainActivity extends AppCompatActivity
     void toggleInputs() {
         switch (mCurrentMode) {
             case AssistControlPressureVentilation:
-                mCluster.toggleVisibility(new boolean[] { false, true, true, true, true });
+                mCluster.toggleVisibility(new boolean[]{false, true, true, true, true});
                 break;
             case AssistControlVolumeVentilation:
-                mCluster.toggleVisibility(new boolean[] { true, true, true, true, false });
+                mCluster.toggleVisibility(new boolean[]{true, true, true, true, false});
                 break;
             case ContinuousPositiveAirwayPressure:
-                mCluster.toggleVisibility(new boolean[] { false, false, false, false, true });
+                mCluster.toggleVisibility(new boolean[]{false, false, false, false, true});
                 break;
         }
     }
@@ -145,9 +155,9 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void onClick(View view) {
-        switch(view.getId()) {
+        switch (view.getId()) {
             case R.id.tidal_volume_text:
-                clamp((EditText)view, TidalVolumeMin, TidalVolumeMax);
+                clamp((EditText) view, TidalVolumeMin, TidalVolumeMax);
                 break;
         }
     }
