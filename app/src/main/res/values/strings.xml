@@ -14,4 +14,5 @@
     <string name="volume_in">Volume (In)</string>
     <string name="volume_out">Volume (Out)</string>
     <string name="pressure">Pressure</string>
+    <string name="ml_kg_ibw">mL/kg IBW</string>
 </resources>

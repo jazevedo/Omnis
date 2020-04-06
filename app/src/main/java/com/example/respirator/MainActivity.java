@@ -1,20 +1,34 @@
 package com.example.respirator;
 
+import android.content.Context;
+import android.hardware.usb.UsbDeviceConnection;
+import android.hardware.usb.UsbManager;
 import android.os.Bundle;
 import android.text.InputFilter;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.Group;
 
+import com.hoho.android.usbserial.driver.UsbSerialDriver;
+import com.hoho.android.usbserial.driver.UsbSerialPort;
+import com.hoho.android.usbserial.driver.UsbSerialProber;
+import com.hoho.android.usbserial.util.SerialInputOutputManager;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.concurrent.Executors;
+
 
 public class MainActivity extends AppCompatActivity
-        implements AdapterView.OnItemSelectedListener {
+        implements AdapterView.OnItemSelectedListener,
+         SerialInputOutputManager.Listener {
 
     public static final String tag = "Omnis";
 
@@ -44,6 +58,11 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        TextView theTextView = findViewById(R.id.tidal_volume_unit);
+
+
 
         mModeSpinner = findViewById(R.id.mode_spinner);
         mToggleTreatment = findViewById(R.id.toggle_treatment);
@@ -88,6 +107,14 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onStart() {
         super.onStart();
+
+        try {
+            onConnect();
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+            mPort = null;
+        }
     }
 
     @Override
@@ -109,6 +136,10 @@ public class MainActivity extends AppCompatActivity
             mGroupOuts.setVisibility(View.GONE);
         }
         else {
+
+            passInputsToArduino();
+
+
             colorRef = R.color.colorAccentInverse;
             textRef = R.string.stop_treatment;
             mCluster.toggleVisibility(new boolean[]{false, false, false, false, false});
@@ -120,6 +151,32 @@ public class MainActivity extends AppCompatActivity
         mToggleTreatment.setBackgroundResource(colorRef);
         mToggleTreatment.setText(textRef);
         mIsTreating = !mIsTreating;
+    }
+
+    void passInputsToArduino() {
+        EditText tidalVolumeText = findViewById(R.id.tidal_volume_text);
+        EditText pressureSupportText = findViewById(R.id.pressure_support_text);
+        EditText respiratoryRateText = findViewById(R.id.respiratory_rate_text);
+        Spinner inspExpText = findViewById(R.id.inspiratory_expiratory_ratio_spinner);
+        EditText peepText = findViewById(R.id.peep_text);
+
+        double tidalVolume = Double.parseDouble(tidalVolumeText.getText().toString());
+        double pressureSupport = Double.parseDouble(pressureSupportText.getText().toString());
+        double respiratoryRate = Double.parseDouble(respiratoryRateText.getText().toString());
+        String inspExp = inspExpText.getSelectedItem().toString();
+        double peep = Double.parseDouble(peepText.getText().toString());
+
+
+        String text = String.format("%f,%f,%f,%s,%f",
+                tidalVolume,
+                pressureSupport,
+                respiratoryRate,
+                inspExp,
+                peep);
+        Log.d("omnis", text);
+
+        sendArduino(text);
+
     }
 
     @Override
@@ -170,5 +227,75 @@ public class MainActivity extends AppCompatActivity
         else if (value > stop) {
             editText.setText(Double.toString(stop));
         }
+    }
+
+
+    private UsbSerialPort mPort;
+
+    public void onConnect() {
+        // mConnectionIndicator.setText("Connecting...");
+
+        UsbManager manager = (UsbManager)getSystemService(Context.USB_SERVICE);
+        List<UsbSerialDriver> availableDrivers = UsbSerialProber.getDefaultProber().findAllDrivers(manager);
+        if (availableDrivers.isEmpty()) {
+            return;
+        }
+
+        // Open a connection to the first available driver.
+        UsbSerialDriver driver = availableDrivers.get(0);
+        UsbDeviceConnection connection = manager.openDevice(driver.getDevice());
+        if (connection == null) {
+            // add UsbManager.requestPermission(driver.getDevice(), ..) handling here
+            return;
+        }
+
+        // Most devices have just one port (port 0)
+        mPort = driver.getPorts().get(0);
+        try {
+            mPort.open(connection);
+
+            mPort.setParameters(9600, 8, UsbSerialPort.STOPBITS_1, UsbSerialPort.PARITY_NONE);
+            //mConnectionIndicator.setText("Connected.");
+        }
+        catch (IOException ex) {
+            ex.printStackTrace();
+            //mConnectionIndicator.setText(String.format("Failed: %s", ex.getMessage()));
+        }
+
+        SerialInputOutputManager usbIoManager = new SerialInputOutputManager(mPort, this);
+        Executors.newSingleThreadExecutor().submit(usbIoManager);
+    }
+
+
+    public void sendArduino(String text) {
+        if (mPort == null)
+            return;
+
+        //String text = mSendText.getText().toString();
+        try {
+            mPort.write(text.getBytes(), 20);
+        }
+        catch (IOException ex) {
+            ex.printStackTrace();
+            //appendSerialText(String.format("Error writing: %s", ex.getMessage()));
+        }
+
+    }
+
+
+    @Override
+    public void onNewData(byte[] data) {
+        String response = new String(data);
+        runOnUiThread(() -> {
+            //mSerialText.append(response);
+        });
+    }
+
+    @Override
+    public void onRunError(Exception e) {
+        e.printStackTrace();
+        runOnUiThread(() -> {
+            //appendSerialText(e.getMessage());
+        });
     }
 }
