@@ -32,8 +32,8 @@ public class MainActivity extends AppCompatActivity
 
     public static final String tag = "Omnis";
 
-    private final double TidalVolumeMin = 6.0;
-    private final double TidalVolumeMax = 8.0;
+    private final double TidalVolumeMin = 1.0;
+    private final double TidalVolumeMax = 1000.0;
     private final double PressureSupportMin = 8.0;
     private final double PressureSupportMax = 20.0;
     private final double PeepMin = 3.0;
@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity
             passInputsToArduino();
 
 
-            colorRef = R.color.colorAccentInverse;
+            colorRef = R.color.colorAccent;
             textRef = R.string.stop_treatment;
             mCluster.toggleVisibility(new boolean[]{false, false, false, false, false});
             mGroupOuts.setVisibility(View.VISIBLE);
