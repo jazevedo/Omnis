@@ -48,18 +48,20 @@ public class MainActivity extends AppCompatActivity
 
     private Modes mCurrentMode;
     private InputCluster mCluster;
-    private View mVolumeIn;
-    private View mVolumeOut;
-    private View mFlowIn;
-    private View mFlowOut;
-    private View mPressure;
+    private TextView mVolumeIn;
+    private TextView mVolumeOut;
+    private TextView mFlowIn;
+    private TextView mFlowOut;
+    private TextView mPressure;
     private Button mToggleView;
+    private TextView mConnectionIndicator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mConnectionIndicator = findViewById(R.id.connectionIndicator);
         mModeSpinner = findViewById(R.id.mode_spinner);
         mToggleTreatment = findViewById(R.id.toggle_treatment);
         mToggleView = findViewById(R.id.toggle_view);
@@ -112,6 +114,8 @@ public class MainActivity extends AppCompatActivity
             ex.printStackTrace();
             mPort = null;
         }
+
+        //setOutputs("10.0588,20.0400,30.0417,40.0769,50.3333");
     }
 
     @Override
@@ -185,13 +189,13 @@ public class MainActivity extends AppCompatActivity
         double peep = Double.parseDouble(peepText.getText().toString());
 
 
-        String text = String.format("%f,%f,%f,%s,%f",
+        String text = String.format("%f,%f,%f,%s,%f;",
                 tidalVolume,
                 pressureSupport,
                 respiratoryRate,
                 inspExp,
                 peep);
-        Log.d("omnis", text);
+        //Log.d("omnis", text);
 
         sendArduino(text);
 
@@ -251,7 +255,7 @@ public class MainActivity extends AppCompatActivity
     private UsbSerialPort mPort;
 
     public void onConnect() {
-        // mConnectionIndicator.setText("Connecting...");
+        mConnectionIndicator.setText("Connecting...");
 
         UsbManager manager = (UsbManager)getSystemService(Context.USB_SERVICE);
         List<UsbSerialDriver> availableDrivers = UsbSerialProber.getDefaultProber().findAllDrivers(manager);
@@ -273,11 +277,11 @@ public class MainActivity extends AppCompatActivity
             mPort.open(connection);
 
             mPort.setParameters(9600, 8, UsbSerialPort.STOPBITS_1, UsbSerialPort.PARITY_NONE);
-            //mConnectionIndicator.setText("Connected.");
+            mConnectionIndicator.setText("Connected.");
         }
         catch (IOException ex) {
             ex.printStackTrace();
-            //mConnectionIndicator.setText(String.format("Failed: %s", ex.getMessage()));
+            mConnectionIndicator.setText(String.format("Failed: %s", ex.getMessage()));
         }
 
         SerialInputOutputManager usbIoManager = new SerialInputOutputManager(mPort, this);
@@ -289,31 +293,63 @@ public class MainActivity extends AppCompatActivity
         if (mPort == null)
             return;
 
-        //String text = mSendText.getText().toString();
         try {
             mPort.write(text.getBytes(), 20);
         }
         catch (IOException ex) {
             ex.printStackTrace();
-            //appendSerialText(String.format("Error writing: %s", ex.getMessage()));
+            mConnectionIndicator.setText(String.format("Error writing: %s", ex.getMessage()));
         }
 
     }
 
+    String mBufferedRead = "";
 
     @Override
     public void onNewData(byte[] data) {
         String response = new String(data);
-        runOnUiThread(() -> {
-            //mSerialText.append(response);
-        });
+        mBufferedRead += response;
+
+        if (mBufferedRead.contains("\r\n")) {
+            runOnUiThread(() -> {
+                Log.d(tag, "RECEIVED " + mBufferedRead);
+                setOutputs(mBufferedRead);
+                mBufferedRead = "";
+                //mSerialText.append(response);
+            });
+        }
     }
 
     @Override
     public void onRunError(Exception e) {
         e.printStackTrace();
-        runOnUiThread(() -> {
-            //appendSerialText(e.getMessage());
-        });
+    }
+
+    void setOutputs(String received) {
+
+        String[] elts = received.split(",");
+
+        if (elts.length != 5) {
+            Log.d(tag, "setOutputs error, received " + Integer.toString(elts.length) + " elements from serial");
+        }
+        else {
+            try {
+                double volumeIn = Double.parseDouble(elts[0]);
+                double volumeOut = Double.parseDouble(elts[1]);
+                double flowIn = Double.parseDouble(elts[2]);
+                double flowOut = Double.parseDouble(elts[3]);
+                double pressure = Double.parseDouble(elts[4]);
+
+                mVolumeIn.setText(Double.toString(volumeIn));
+                mVolumeOut.setText(Double.toString(volumeOut));
+                mFlowIn.setText(Double.toString(flowIn));
+                mFlowOut.setText(Double.toString(flowOut));
+                mPressure.setText(Double.toString(pressure));
+            }
+            catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+
     }
 }
