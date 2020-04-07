@@ -53,19 +53,16 @@ public class MainActivity extends AppCompatActivity
     private View mFlowIn;
     private View mFlowOut;
     private View mPressure;
+    private Button mToggleView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        TextView theTextView = findViewById(R.id.tidal_volume_unit);
-
-
-
         mModeSpinner = findViewById(R.id.mode_spinner);
         mToggleTreatment = findViewById(R.id.toggle_treatment);
+        mToggleView = findViewById(R.id.toggle_view);
         mGroupOuts = findViewById(R.id.group_outs);
         mGroupOuts.setVisibility(View.GONE);
         findViewById(R.id.divider).setVisibility(View.GONE);
@@ -123,6 +120,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     boolean mIsTreating = false;
+    boolean mSettingsView = true;
 
     public void toggleTreatment(View view) {
         int colorRef;
@@ -130,27 +128,47 @@ public class MainActivity extends AppCompatActivity
         if (mIsTreating) {
             colorRef = R.color.colorAccent;
             textRef = R.string.begin_treatment;
-            mModeSpinner.setEnabled(true);
-            mModeSpinner.setClickable(true);
-            toggleInputs();
-            mGroupOuts.setVisibility(View.GONE);
+            mToggleView.setVisibility(View.GONE);
+            changeSettingsMode();
         }
         else {
-
             passInputsToArduino();
-
-
             colorRef = R.color.colorAccentInverse;
             textRef = R.string.stop_treatment;
-            mCluster.toggleVisibility(new boolean[]{false, false, false, false, false});
-            mGroupOuts.setVisibility(View.VISIBLE);
-            mModeSpinner.setEnabled(false);
-            mModeSpinner.setClickable(false);
+            mToggleView.setVisibility(View.VISIBLE);
+            changeMonitorMode();
         }
 
         mToggleTreatment.setBackgroundResource(colorRef);
         mToggleTreatment.setText(textRef);
         mIsTreating = !mIsTreating;
+    }
+
+    void changeMonitorMode() {
+        mCluster.toggleVisibility(new boolean[]{false, false, false, false, false});
+        mGroupOuts.setVisibility(View.VISIBLE);
+        mModeSpinner.setEnabled(false);
+        mModeSpinner.setClickable(false);
+        mToggleView.setText(R.string.view_settings);
+        mSettingsView = false;
+    }
+
+    void changeSettingsMode() {
+        mModeSpinner.setEnabled(true);
+        mModeSpinner.setClickable(true);
+        toggleInputs();
+        mGroupOuts.setVisibility(View.GONE);
+        mToggleView.setText(R.string.view_monitor);
+        mSettingsView = true;
+    }
+
+    public void toggleView(View view) {
+        if (mSettingsView) {
+            changeMonitorMode();
+        }
+        else {
+            changeSettingsMode();
+        }
     }
 
     void passInputsToArduino() {

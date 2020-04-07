@@ -239,113 +239,121 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/peep_text" />
 
+
     <TextView
         android:id="@+id/volume_in_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
 
         android:labelFor="@id/volume_in_text"
         android:text="@string/volume_in"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/volume_in_text"
         app:layout_constraintTop_toBottomOf="@+id/divider" />
 
     <TextView
         android:id="@+id/volume_in_text"
-        android:layout_width="100dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:background="@color/colorAccent"
         android:gravity="center"
         android:labelFor="@id/volume_in_text"
         android:padding="8dp"
-        android:textColor="@android:color/white"
         android:text="1.0"
+        android:textColor="@android:color/white"
         android:textSize="20dp"
+        app:layout_constraintEnd_toStartOf="@+id/volume_out_text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/volume_in_label" />
-
-    <TextView
-        android:id="@+id/flow_in_label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="16dp"
-
-        android:labelFor="@id/flow_in_text"
-        android:text="@string/flow_in"
-        app:layout_constraintStart_toEndOf="@+id/volume_in_text"
-        app:layout_constraintTop_toBottomOf="@+id/divider" />
-
-    <TextView
-        android:id="@+id/flow_in_text"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:background="@color/colorAccent"
-        android:gravity="center"
-        android:labelFor="@id/flow_out_text"
-        android:textColor="@android:color/white"
-        android:padding="8dp"
-        android:text="1.0"
-        android:textSize="20dp"
-        app:layout_constraintStart_toStartOf="@id/flow_in_label"
-        app:layout_constraintTop_toBottomOf="@+id/flow_in_label" />
-
 
     <TextView
         android:id="@+id/volume_out_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:labelFor="@id/volume_out_text"
         android:text="@string/volume_out"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/volume_in_text" />
+
+        app:layout_constraintStart_toStartOf="@+id/volume_out_text"
+        app:layout_constraintTop_toBottomOf="@+id/divider" />
+
 
     <TextView
         android:id="@+id/volume_out_text"
-        android:layout_width="100dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
         android:background="@color/colorAccent"
         android:gravity="center"
         android:labelFor="@id/volume_out_text"
         android:padding="8dp"
-        android:textColor="@android:color/white"
         android:text="1.0"
+        android:textColor="@android:color/white"
         android:textSize="20dp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/volume_in_text"
         app:layout_constraintTop_toBottomOf="@+id/volume_out_label" />
+
+    <TextView
+        android:id="@+id/flow_in_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:labelFor="@id/flow_in_text"
+        android:text="@string/flow_in"
+        app:layout_constraintStart_toStartOf="@+id/flow_in_text"
+        app:layout_constraintTop_toBottomOf="@+id/volume_in_text" />
+
+    <TextView
+        android:id="@+id/flow_in_text"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@color/colorAccent"
+        android:gravity="center"
+        android:labelFor="@id/flow_out_text"
+        android:padding="8dp"
+        android:text="1.0"
+        android:textColor="@android:color/white"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toStartOf="@+id/flow_out_text"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/flow_in_label" />
 
     <TextView
         android:id="@+id/flow_out_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
         android:layout_marginTop="16dp"
         android:labelFor="@id/flow_out_text"
         android:text="Flow (Out)"
-        app:layout_constraintStart_toEndOf="@+id/volume_out_text"
-        app:layout_constraintTop_toBottomOf="@+id/volume_in_text" />
+        app:layout_constraintStart_toStartOf="@+id/flow_out_text"
+        app:layout_constraintTop_toBottomOf="@+id/volume_out_text" />
 
     <TextView
         android:id="@+id/flow_out_text"
-        android:layout_width="100dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
         android:background="@color/colorAccent"
         android:gravity="center"
         android:labelFor="@id/flow_out_text"
-        android:textColor="@android:color/white"
         android:padding="8dp"
         android:text="1.0"
+        android:textColor="@android:color/white"
         android:textSize="20dp"
-        app:layout_constraintStart_toStartOf="@id/flow_out_label"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/flow_in_text"
         app:layout_constraintTop_toBottomOf="@+id/flow_out_label" />
 
     <TextView
@@ -357,21 +365,23 @@
         android:labelFor="@id/volume_out_text"
         android:text="@string/pressure"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/volume_out_text" />
+        app:layout_constraintTop_toBottomOf="@+id/flow_in_text" />
 
     <TextView
         android:id="@+id/pressure_text"
-        android:layout_width="100dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
         android:background="@color/colorAccent"
         android:gravity="center"
         android:labelFor="@id/pressure_text"
         android:padding="8dp"
-        android:textColor="@android:color/white"
         android:text="1.0"
+        android:textColor="@android:color/white"
         android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pressure_label" />
 
@@ -381,6 +391,25 @@
         android:layout_height="wrap_content"
         android:visibility="visible"
         app:constraint_referenced_ids="pressure_label,pressure_text,volume_in_label,volume_in_text,flow_in_label,flow_in_text,volume_out_label,volume_out_text,flow_out_label,flow_out_text" />
+
+    <Button
+        android:id="@+id/toggle_view"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/colorAccent"
+        android:textColor="@android:color/white"
+        android:onClick="toggleView"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:text="@string/view_monitor"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@id/toggle_treatment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/toggle_treatment"
