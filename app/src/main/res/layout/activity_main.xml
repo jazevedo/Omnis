@@ -6,17 +6,43 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <ImageView
+        android:id="@+id/outer_reef_banner"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:contentDescription="@string/outer_reef"
+        android:cropToPadding="true"
+        android:padding="10dp"
+        android:scaleType="centerInside"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/outerreef_banner">
+    </ImageView>
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:text="@string/project_omnis"
+        android:textAlignment="center"
+        android:textColor="@color/colorAccentText"
+        android:textSize="28sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/outer_reef_banner" />
     <TextView
         android:id="@+id/connectionIndicator"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
-        android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/title" />
 
     <TextView
         android:id="@+id/mode_label"
@@ -98,14 +124,16 @@
 
     <EditText
         android:id="@+id/pressure_support_text"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
+        android:layout_width="78dp"
+        android:layout_height="44dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:paddingStart="6dp"
         android:ems="10"
         android:importantForAutofill="no"
         android:inputType="number|numberDecimal"
+        android:paddingStart="6dp"
+        android:paddingEnd="6dp"
+        android:labelFor="@id/pressure_support_text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pressure_support_label" />
 
@@ -274,9 +302,9 @@
         android:gravity="center"
         android:labelFor="@id/volume_in_text"
         android:padding="8dp"
-        android:text="1.0"
+        android:text="@string/_1_0"
         android:textColor="@android:color/white"
-        android:textSize="20dp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toStartOf="@+id/volume_out_text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/volume_in_label" />
@@ -304,9 +332,9 @@
         android:gravity="center"
         android:labelFor="@id/volume_out_text"
         android:padding="8dp"
-        android:text="1.0"
+        android:text="@string/_1_0"
         android:textColor="@android:color/white"
-        android:textSize="20dp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/volume_in_text"
         app:layout_constraintTop_toBottomOf="@+id/volume_out_label" />
@@ -332,9 +360,9 @@
         android:gravity="center"
         android:labelFor="@id/flow_out_text"
         android:padding="8dp"
-        android:text="1.0"
+        android:text="@string/_1_0"
         android:textColor="@android:color/white"
-        android:textSize="20dp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toStartOf="@+id/flow_out_text"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -346,7 +374,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:labelFor="@id/flow_out_text"
-        android:text="Flow (Out)"
+        android:text="@string/flow_out"
         app:layout_constraintStart_toStartOf="@+id/flow_out_text"
         app:layout_constraintTop_toBottomOf="@+id/volume_out_text" />
 
@@ -361,9 +389,9 @@
         android:gravity="center"
         android:labelFor="@id/flow_out_text"
         android:padding="8dp"
-        android:text="1.0"
+        android:text="@string/_1_0"
         android:textColor="@android:color/white"
-        android:textSize="20dp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/flow_in_text"
         app:layout_constraintTop_toBottomOf="@+id/flow_out_label" />
@@ -390,9 +418,9 @@
         android:gravity="center"
         android:labelFor="@id/pressure_text"
         android:padding="8dp"
-        android:text="1.0"
+        android:text="@string/_1_0"
         android:textColor="@android:color/white"
-        android:textSize="20dp"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pressure_label" />

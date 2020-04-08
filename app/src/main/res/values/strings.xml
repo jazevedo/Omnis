@@ -17,4 +17,8 @@
     <string name="ml_kg_ibw">mL/kg IBW</string>
     <string name="view_settings">View Settings</string>
     <string name="view_monitor">View Monitor</string>
+    <string name="project_omnis">PROJECT OMNIS</string>
+    <string name="outer_reef">Outer Reef</string>
+    <string name="flow_out">Flow (Out)</string>
+    <string name="_1_0">0.0</string>
 </resources>
