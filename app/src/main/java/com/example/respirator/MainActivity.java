@@ -71,19 +71,19 @@ public class MainActivity extends AppCompatActivity
 
         EditText tidalVolume = findViewById(R.id.tidal_volume_text);
         tidalVolume.setText(Double.toString(TidalVolumeMin));
-        tidalVolume.setFilters(new InputFilter[]{new InputFilterClamp(TidalVolumeMin, TidalVolumeMax)});
+        //tidalVolume.setFilters(new InputFilter[]{new InputFilterClamp(TidalVolumeMin, TidalVolumeMax)});
 
         EditText pressureSupport = findViewById(R.id.pressure_support_text);
         pressureSupport.setText(Double.toString(PressureSupportMin));
-        pressureSupport.setFilters(new InputFilter[]{new InputFilterClamp(PressureSupportMin, PressureSupportMax)});
+        //pressureSupport.setFilters(new InputFilter[]{new InputFilterClamp(PressureSupportMin, PressureSupportMax)});
 
         EditText peep = findViewById(R.id.peep_text);
         peep.setText(Double.toString(PeepMin));
-        peep.setFilters(new InputFilter[]{new InputFilterClamp(PeepMin, PeepMax)});
+        //peep.setFilters(new InputFilter[]{new InputFilterClamp(PeepMin, PeepMax)});
 
         EditText respiratoryRate = findViewById(R.id.respiratory_rate_text);
         respiratoryRate.setText(Integer.toString(RespiratoryRateMin));
-        respiratoryRate.setFilters(new InputFilter[]{new InputFilterClamp(RespiratoryRateMin, RespiratoryRateMax)});
+        //respiratoryRate.setFilters(new InputFilter[]{new InputFilterClamp(RespiratoryRateMin, RespiratoryRateMax)});
 
         mCluster = new InputCluster(new View[]{
                 findViewById(R.id.group_tidal_volume),
@@ -130,6 +130,7 @@ public class MainActivity extends AppCompatActivity
         int colorRef;
         int textRef;
         if (mIsTreating) {
+            passStandby();
             colorRef = R.color.colorAccent;
             textRef = R.string.begin_treatment;
             mToggleView.setVisibility(View.GONE);
@@ -188,8 +189,21 @@ public class MainActivity extends AppCompatActivity
         String inspExp = inspExpText.getSelectedItem().toString();
         double peep = Double.parseDouble(peepText.getText().toString());
 
+        char command = 0;
+        switch (mCurrentMode) {
+            case AssistControlPressureVentilation:
+                command = 'p';
+                break;
+            case AssistControlVolumeVentilation:
+                command = 'v';
+                break;
+            case ContinuousPositiveAirwayPressure:
+                command = 'a';
+                break;
+        }
 
-        String text = String.format("%f,%f,%f,%s,%f;",
+        String text = String.format("%c%f,%f,%f,%s,%f;",
+                command,
                 tidalVolume,
                 pressureSupport,
                 respiratoryRate,
@@ -199,6 +213,10 @@ public class MainActivity extends AppCompatActivity
 
         sendArduino(text);
 
+    }
+
+    void passStandby() {
+        sendArduino("s");
     }
 
     @Override

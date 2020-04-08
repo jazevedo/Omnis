@@ -79,6 +79,27 @@ void loop() {
   }
 }
 
+double convertRatio(char* s) {
+    if (strncmp("1:2", s, 3)) {
+      return 0.5;
+    }
+    if (strncmp("1:3", s, 3)) {
+      return 0.3333;
+    }
+    if (strncmp("1:1", s, 3)) {
+      return 1.0;
+    }
+    if (strncmp("2:1", s, 3)) {
+      return 2.0;
+    }
+    if (strncmp("3:1", s, 3)) {
+      return 3.0;
+    }
+    if (strncmp("4:1", s, 3)) {
+      return 4.0;
+    }
+}
+
 void printVariables(float tidalVolume, float pressureSupport, float respiratoryRate, char* inspExp, float peep) {
   char buffer2[MAX_BUFFER];
   sprintf(buffer2, "tidalVolume = %s", String(tidalVolume, 4).c_str());
