@@ -303,8 +303,6 @@ public class MainActivity extends AppCompatActivity
             return;
         }
 
-        connection.
-
         // Most devices have just one port (port 0)
         mPort = driver.getPorts().get(0);
         try {
