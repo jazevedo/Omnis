@@ -125,12 +125,17 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onStop() {
         super.onStop();
+        mIsTreating = false;
     }
 
     boolean mIsTreating = false;
     boolean mSettingsView = true;
 
     public void toggleTreatment(View view) {
+        _toggleTreatment(true);
+    }
+
+    void _toggleTreatment(boolean commandArduino) {
         int colorRef;
         int textRef;
         if (mIsTreating) {
@@ -141,7 +146,9 @@ public class MainActivity extends AppCompatActivity
             changeSettingsMode();
         }
         else {
-            passInputsToArduino();
+            if (commandArduino) {
+                passInputsToArduino();
+            }
             colorRef = R.color.colorAccent;
             textRef = R.string.stop_treatment;
             mToggleView.setVisibility(View.VISIBLE);
@@ -293,6 +300,8 @@ public class MainActivity extends AppCompatActivity
             return;
         }
 
+        connection.
+
         // Most devices have just one port (port 0)
         mPort = driver.getPorts().get(0);
         try {
@@ -333,6 +342,7 @@ public class MainActivity extends AppCompatActivity
         mBufferedRead += response;
 
         if (mBufferedRead.contains("\r\n")) {
+
             runOnUiThread(() -> {
                 Log.d(tag, "RECEIVED " + mBufferedRead);
                 setOutputs(mBufferedRead);
@@ -367,6 +377,11 @@ public class MainActivity extends AppCompatActivity
                 mFlowIn.setText(Double.toString(flowIn));
                 mFlowOut.setText(Double.toString(flowOut));
                 mPressure.setText(Double.toString(pressure));
+
+
+                if (!mIsTreating) {
+                    _toggleTreatment(false);
+                }
             }
             catch (Exception ex) {
                 ex.printStackTrace();
