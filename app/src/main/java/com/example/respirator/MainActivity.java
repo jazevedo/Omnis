@@ -1,8 +1,11 @@
 package com.example.respirator;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.IntentFilter;
 import android.hardware.usb.UsbDeviceConnection;
 import android.hardware.usb.UsbManager;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.util.Log;
@@ -288,6 +291,10 @@ public class MainActivity extends AppCompatActivity
             mConnectionIndicator.setText(String.format("Failed: %s", ex.getMessage()));
         }
 
+        BroadcastReceiver receiver = new UsbDisconnectBroadcastReceiver(this);
+        IntentFilter filter = new IntentFilter(UsbManager.ACTION_USB_DEVICE_DETACHED);
+        registerReceiver(receiver, filter);
+
         SerialInputOutputManager usbIoManager = new SerialInputOutputManager(mPort, this);
         Executors.newSingleThreadExecutor().submit(usbIoManager);
     }
@@ -355,5 +362,9 @@ public class MainActivity extends AppCompatActivity
             }
         }
 
+    }
+
+    public void usbDisonnected() {
+        finishAffinity();
     }
 }
