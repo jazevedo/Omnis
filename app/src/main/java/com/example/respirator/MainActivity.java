@@ -308,7 +308,7 @@ public class MainActivity extends AppCompatActivity
         try {
             mPort.open(connection);
 
-            mPort.setParameters(115200, 8, UsbSerialPort.STOPBITS_1, UsbSerialPort.PARITY_NONE);
+            mPort.setParameters(9600, 8, UsbSerialPort.STOPBITS_1, UsbSerialPort.PARITY_NONE);
             mConnectionIndicator.setText("Connected.");
         }
         catch (IOException ex) {
@@ -384,9 +384,9 @@ public class MainActivity extends AppCompatActivity
                 mPressure.setText(Double.toString(pressure));
 
 
-                if (!mIsTreating) {
-                    _toggleTreatment(false);
-                }
+                //if (!mIsTreating) {
+                //    _toggleTreatment(false);
+                //}
             }
             catch (Exception ex) {
                 ex.printStackTrace();
