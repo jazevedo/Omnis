@@ -128,6 +128,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onStop() {
         super.onStop();
+        Log.d(tag, "Called onStop, setting mIsTreating to false");
         mIsTreating = false;
     }
 
@@ -135,6 +136,7 @@ public class MainActivity extends AppCompatActivity
     boolean mSettingsView = true;
 
     public void toggleTreatment(View view) {
+        Log.d(tag, "clicked toggle treatment, calling _toggleTreatment");
         _toggleTreatment(true);
     }
 
@@ -385,6 +387,7 @@ public class MainActivity extends AppCompatActivity
 
 
                 if (!mIsTreating) {
+                    Log.d(tag, "Detected message when not treating, toggling treatment");
                     _toggleTreatment(false);
                 }
             }
@@ -396,6 +399,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void usbDisonnected() {
+        Log.d(tag, "Detected USB disconnect, shutting down.");
         finishAffinity();
     }
 }
