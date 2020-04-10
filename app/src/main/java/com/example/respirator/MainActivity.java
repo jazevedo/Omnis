@@ -335,7 +335,7 @@ public class MainActivity extends AppCompatActivity
         try {
             mPort.open(connection);
 
-            mPort.setParameters(115200, 8, UsbSerialPort.STOPBITS_1, UsbSerialPort.PARITY_NONE);
+            mPort.setParameters(9600, 8, UsbSerialPort.STOPBITS_1, UsbSerialPort.PARITY_NONE);
             mConnectionIndicator.setText("Connected.");
         }
         catch (IOException ex) {
