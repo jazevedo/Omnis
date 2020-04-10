@@ -28,6 +28,8 @@ import com.hoho.android.usbserial.util.SerialInputOutputManager;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.Executors;
 
 
@@ -60,6 +62,8 @@ public class MainActivity extends AppCompatActivity
     private TextView mPressure;
     private Button mToggleView;
     private TextView mConnectionIndicator;
+
+    private Timer mTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,9 +134,14 @@ public class MainActivity extends AppCompatActivity
         super.onStop();
         Log.d(tag, "Called onStop, setting mIsTreating to false");
         mIsTreating = false;
+        if (mTimer != null) {
+            mTimer.cancel();
+            mTimer = null;
+        }
     }
 
     boolean mIsTreating = false;
+    boolean mAllowAutoConnect = true;
     boolean mSettingsView = true;
 
     public void toggleTreatment(View view) {
@@ -143,7 +152,22 @@ public class MainActivity extends AppCompatActivity
     void _toggleTreatment(boolean commandArduino) {
         int colorRef;
         int textRef;
+        mAllowAutoConnect = false;
         if (mIsTreating) {
+            if (mTimer != null) {
+                mTimer.cancel();
+                mTimer = null;
+            }
+            mTimer = new Timer();
+            mTimer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    if (!mIsTreating) {
+                        mAllowAutoConnect = true;
+                        mTimer = null;
+                    }
+                }
+            }, 5000);
             passStandby();
             colorRef = R.color.colorAccent;
             textRef = R.string.begin_treatment;
@@ -158,6 +182,7 @@ public class MainActivity extends AppCompatActivity
             textRef = R.string.stop_treatment;
             mToggleView.setVisibility(View.VISIBLE);
             changeMonitorMode();
+
         }
 
         mToggleTreatment.setBackgroundResource(colorRef);
@@ -386,7 +411,7 @@ public class MainActivity extends AppCompatActivity
                 mPressure.setText(Double.toString(pressure));
 
 
-                if (!mIsTreating) {
+                if (mAllowAutoConnect) {
                     Log.d(tag, "Detected message when not treating, toggling treatment");
                     _toggleTreatment(false);
                 }
