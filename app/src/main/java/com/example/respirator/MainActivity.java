@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity
 
     public static final String tag = "Omnis";
 
-    private final double TidalVolumeMin = 1.0;
+    private final double TidalVolumeMin = 100;
     private final double TidalVolumeMax = 1000.0;
     private final double PressureSupportMin = 8.0;
     private final double PressureSupportMax = 20.0;
@@ -404,11 +404,11 @@ public class MainActivity extends AppCompatActivity
                 double flowOut = Double.parseDouble(elts[3]);
                 double pressure = Double.parseDouble(elts[4]);
 
-                mVolumeIn.setText(Double.toString(volumeIn));
-                mVolumeOut.setText(Double.toString(volumeOut));
-                mFlowIn.setText(Double.toString(flowIn));
-                mFlowOut.setText(Double.toString(flowOut));
-                mPressure.setText(Double.toString(pressure));
+                mVolumeIn.setText(String.format("%.1f", volumeIn));
+                mVolumeOut.setText(String.format("%.1f",volumeOut));
+                mFlowIn.setText(String.format("%.1f",flowIn));
+                mFlowOut.setText(String.format("%.1f",flowOut));
+                mPressure.setText(String.format("%.1f",pressure));
 
 
                 if (mAllowAutoConnect) {
